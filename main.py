@@ -1,7 +1,6 @@
-import os
 import pandas as pd
 
-file = open("floristak_input",'r',encoding="utf8")
+file = open("floristak_input", 'r', encoding="utf8")
 
 c = file.readlines()
 
@@ -27,13 +26,11 @@ for outer_i in range(0, len(c)):
         print(str(i) + ': ' + str(one_line[i]))
         if one_line[i] == '(':
             remark_mode = True
-            #one_line[i] = ''
 
         if one_line[i] == ')':
             remark_mode = False
-            #one_line[i] = ''
 
-        if remark_mode == True:
+        if remark_mode:
             if one_line[i] != '(':
                 remark = remark + one_line[i]
 
@@ -60,7 +57,11 @@ for outer_i in range(0, len(c)):
         out_data = pd.DataFrame({'species': [one_sp] * len(data), 'data': data, 'remarks': remarks})
 
     else:
-        out_data = pd.concat([out_data, pd.DataFrame({'species': [one_sp] * len(data), 'data': data, 'remarks': remarks})])
+        out_data = pd.concat([out_data, pd.DataFrame({
+            'species': [one_sp] * len(data),
+            'data': data,
+            'remarks': remarks
+        })])
 
 out_data['data'] = [int(i) for i in out_data['data']]
 out_data.to_excel('floristak_out.xlsx', index=False)
