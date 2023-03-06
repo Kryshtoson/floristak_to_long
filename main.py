@@ -13,7 +13,7 @@ for outer_i in range(0, len(c)):
             one_sp = one_sp + i
         else:
             break
-    print(one_sp)
+    print(one_sp)á
 
     data = []
     one = ''
